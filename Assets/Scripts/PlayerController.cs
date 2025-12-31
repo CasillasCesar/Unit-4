@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
         {
             hasPowerup = true;
             Destroy(other.gameObject);
+            StartCoroutine(PowerupCountdownRoutine());
         }
     }
 
@@ -41,5 +43,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Collide with "+collision.gameObject.name+ " with powerup set to " + hasPowerup);
             enemyRigidbody.AddForce((awayFromPlayer * powerupStrength), ForceMode.Impulse);
         }
+    }
+
+    private IEnumerator PowerupCountdownRoutine()
+    {
+        yield return new WaitForSeconds(7);
+        hasPowerup = false;
     }
 }
